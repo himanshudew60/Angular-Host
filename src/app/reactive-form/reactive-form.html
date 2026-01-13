@@ -1,0 +1,136 @@
+<div class="container mt-5 w-75">
+    <div class="card">
+        <div class="card-header text-center">
+            <h3>Reactive Form</h3>
+        </div>
+
+        <div class="card-body">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+                <!-- First & Last Name -->
+                <div class="row">
+                    <div class="col-6">
+                        <label class="form-label">First Name</label>
+                        <input class="form-control" formControlName="firstName">
+
+                        <div *ngIf="userForm.get('firstName')?.touched">
+                            <small class="text-danger" *ngIf="userForm.get('firstName')?.errors?.['required']">
+                                First name is required
+                            </small>
+                            <small class="text-danger" *ngIf="userForm.get('firstName')?.errors?.['minlength']">
+                                Minimum 5 characters required
+                            </small>
+                            <small class="text-danger" *ngIf="userForm.get('firstName')?.errors?.['pattern']">
+                                Only alphabets allowed
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <label class="form-label">Last Name</label>
+                        <input class="form-control" formControlName="lastName">
+
+                        <div *ngIf="userForm.get('lastName')?.touched">
+                            <small class="text-danger" *ngIf="userForm.get('lastName')?.errors?.['required']">
+                                Last name is required
+                            </small>
+                            <small class="text-danger" *ngIf="userForm.get('lastName')?.errors?.['pattern']">
+                                Only alphabets allowed
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Group -->
+                <div class="row mt-3" formGroupName="price">
+                    <div class="col-6">
+                        <label class="form-label">Currency</label>
+                        <select class="form-control" formControlName="currency">
+                            <option value="">--Select--</option>
+                            <option value="USD">USD</option>
+                            <option value="RUPEE">RUPEE</option>
+                        </select>
+
+                        <small class="text-danger"
+                            *ngIf="userForm.get('price.currency')?.touched && userForm.get('price.currency')?.invalid">
+                            Currency is required
+                        </small>
+                    </div>
+
+                    <div class="col-6">
+                        <label class="form-label">Price</label>
+                        <select class="form-control" formControlName="value">
+                            <option value="">--Select--</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="300">300</option>
+                        </select>
+
+                        <small class="text-danger"
+                            *ngIf="userForm.get('price.value')?.touched && userForm.get('price.value')?.invalid">
+                            Price is required
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Mobile & Email -->
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="form-label">Mobile</label>
+                        <input class="form-control" formControlName="mobile">
+
+                        <div *ngIf="userForm.get('mobile')?.touched">
+                            <small class="text-danger" *ngIf="userForm.get('mobile')?.errors?.['required']">
+                                Mobile number is required
+                            </small>
+                            <small class="text-danger" *ngIf="userForm.get('mobile')?.errors?.['pattern']">
+                                Enter valid 10-digit number
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <label class="form-label">Email</label>
+                        <input class="form-control" formControlName="email">
+
+                        <div *ngIf="userForm.get('email')?.touched">
+                            <small class="text-danger" *ngIf="userForm.get('email')?.errors?.['required']">
+                                Email is required
+                            </small>
+                            <small class="text-danger" *ngIf="userForm.get('email')?.errors?.['email']">
+                                Invalid email format
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gender & Submit -->
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="form-label">Gender</label>
+                        <select class="form-control" formControlName="gender">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+
+                        <small class="text-danger"
+                            *ngIf="userForm.get('gender')?.touched && userForm.get('gender')?.invalid">
+                            Gender is required
+                        </small>
+                    </div>
+
+                    <div class="col-6 d-flex align-items-end">
+                        <button class="btn btn-success w-100" [disabled]="userForm.invalid">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<pre>{{ userForm.value | json }}</pre>
