@@ -1,0 +1,14 @@
+mat-card {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  border-radius: 15px;
+}
+
+mat-form-field {
+  background: #fff;
+  border-radius: 8px;
+}
+
+button {
+  font-weight: bold;
+  font-size: 16px;
+}

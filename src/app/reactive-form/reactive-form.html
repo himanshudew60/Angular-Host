@@ -1,136 +1,114 @@
 <div class="container mt-5 w-75">
-    <div class="card">
-        <div class="card-header text-center">
-            <h3>Reactive Form</h3>
+  <mat-card class="p-4 shadow-lg" style="background: linear-gradient(135deg, #f9f9f9, #e3f2fd); border-radius:15px;">
+    <mat-card-header class="text-center mb-4">
+      <h2 style="color:#1976d2;">🎨 Creative Reactive Form</h2>
+     
+    </mat-card-header>
+
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+      <!-- First & Last Name -->
+      <div class="row mb-3">
+        <div class="col-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName">
+            <mat-error *ngIf="getError(userForm.get('firstName'))">
+              {{ getError(userForm.get('firstName')) }}
+            </mat-error>
+          </mat-form-field>
         </div>
 
-        <div class="card-body">
-            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-
-                <!-- First & Last Name -->
-                <div class="row">
-                    <div class="col-6">
-                        <label class="form-label">First Name</label>
-                        <input class="form-control" formControlName="firstName">
-
-                        <div *ngIf="userForm.get('firstName')?.touched">
-                            <small class="text-danger" *ngIf="userForm.get('firstName')?.errors?.['required']">
-                                First name is required
-                            </small>
-                            <small class="text-danger" *ngIf="userForm.get('firstName')?.errors?.['minlength']">
-                                Minimum 5 characters required
-                            </small>
-                            <small class="text-danger" *ngIf="userForm.get('firstName')?.errors?.['pattern']">
-                                Only alphabets allowed
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <label class="form-label">Last Name</label>
-                        <input class="form-control" formControlName="lastName">
-
-                        <div *ngIf="userForm.get('lastName')?.touched">
-                            <small class="text-danger" *ngIf="userForm.get('lastName')?.errors?.['required']">
-                                Last name is required
-                            </small>
-                            <small class="text-danger" *ngIf="userForm.get('lastName')?.errors?.['pattern']">
-                                Only alphabets allowed
-                            </small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Price Group -->
-                <div class="row mt-3" formGroupName="price">
-                    <div class="col-6">
-                        <label class="form-label">Currency</label>
-                        <select class="form-control" formControlName="currency">
-                            <option value="">--Select--</option>
-                            <option value="USD">USD</option>
-                            <option value="RUPEE">RUPEE</option>
-                        </select>
-
-                        <small class="text-danger"
-                            *ngIf="userForm.get('price.currency')?.touched && userForm.get('price.currency')?.invalid">
-                            Currency is required
-                        </small>
-                    </div>
-
-                    <div class="col-6">
-                        <label class="form-label">Price</label>
-                        <select class="form-control" formControlName="value">
-                            <option value="">--Select--</option>
-                            <option value="100">100</option>
-                            <option value="200">200</option>
-                            <option value="300">300</option>
-                        </select>
-
-                        <small class="text-danger"
-                            *ngIf="userForm.get('price.value')?.touched && userForm.get('price.value')?.invalid">
-                            Price is required
-                        </small>
-                    </div>
-                </div>
-
-                <!-- Mobile & Email -->
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <label class="form-label">Mobile</label>
-                        <input class="form-control" formControlName="mobile">
-
-                        <div *ngIf="userForm.get('mobile')?.touched">
-                            <small class="text-danger" *ngIf="userForm.get('mobile')?.errors?.['required']">
-                                Mobile number is required
-                            </small>
-                            <small class="text-danger" *ngIf="userForm.get('mobile')?.errors?.['pattern']">
-                                Enter valid 10-digit number
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <label class="form-label">Email</label>
-                        <input class="form-control" formControlName="email">
-
-                        <div *ngIf="userForm.get('email')?.touched">
-                            <small class="text-danger" *ngIf="userForm.get('email')?.errors?.['required']">
-                                Email is required
-                            </small>
-                            <small class="text-danger" *ngIf="userForm.get('email')?.errors?.['email']">
-                                Invalid email format
-                            </small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gender & Submit -->
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <label class="form-label">Gender</label>
-                        <select class="form-control" formControlName="gender">
-                            <option value="">Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
-                        </select>
-
-                        <small class="text-danger"
-                            *ngIf="userForm.get('gender')?.touched && userForm.get('gender')?.invalid">
-                            Gender is required
-                        </small>
-                    </div>
-
-                    <div class="col-6 d-flex align-items-end">
-                        <button class="btn btn-success w-100" [disabled]="userForm.invalid">
-                            Submit
-                        </button>
-                    </div>
-                </div>
-
-            </form>
+        <div class="col-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName">
+            <mat-error *ngIf="getError(userForm.get('lastName'))">
+              {{ getError(userForm.get('lastName')) }}
+            </mat-error>
+          </mat-form-field>
         </div>
-    </div>
+      </div>
+
+      <!-- Price -->
+      <div class="row mb-3" formGroupName="price">
+        <div class="col-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Currency</mat-label>
+            <mat-select formControlName="currency">
+              <mat-option value="">--Select--</mat-option>
+              <mat-option value="USD">USD</mat-option>
+              <mat-option value="RUPEE">RUPEE</mat-option>
+            </mat-select>
+            <mat-error *ngIf="getError(userForm.get('price.currency'))">
+              {{ getError(userForm.get('price.currency')) }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Price</mat-label>
+            <mat-select formControlName="value">
+              <mat-option value="">--Select--</mat-option>
+              <mat-option value="100">100</mat-option>
+              <mat-option value="200">200</mat-option>
+              <mat-option value="300">300</mat-option>
+            </mat-select>
+            <mat-error *ngIf="getError(userForm.get('price.value'))">
+              {{ getError(userForm.get('price.value')) }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Mobile & Email -->
+      <div class="row mb-3">
+        <div class="col-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Mobile</mat-label>
+            <input matInput formControlName="mobile">
+            <mat-error *ngIf="getError(userForm.get('mobile'))">
+              {{ getError(userForm.get('mobile')) }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error *ngIf="getError(userForm.get('email'))">
+              {{ getError(userForm.get('email')) }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Gender & Submit -->
+      <div class="row mb-3 align-items-end">
+        <div class="col-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender">
+              <mat-option value="">Select Gender</mat-option>
+              <mat-option value="male">Male</mat-option>
+              <mat-option value="female">Female</mat-option>
+              <mat-option value="other">Other</mat-option>
+            </mat-select>
+            <mat-error *ngIf="getError(userForm.get('gender'))">
+              {{ getError(userForm.get('gender')) }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-6">
+          <button mat-raised-button color="primary" class="w-100" [disabled]="userForm.invalid">
+            Submit
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </mat-card>
 </div>
-
-<pre>{{ userForm.value | json }}</pre>
